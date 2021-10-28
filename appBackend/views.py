@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.views import generic
 
-# Create your views here.
+class LoginView(generic.TemplateView):
+  template_name = 'appBackend/login.html'
+
+class MenuView(generic.TemplateView):
+  template_name = 'appBackend/menu.html'
+

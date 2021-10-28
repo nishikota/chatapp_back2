@@ -16,7 +16,7 @@ class Room(models.Model):
 class Talk(models.Model):
   user_id = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
   room_id = models.ForeignKey(Room, on_delete=models.CASCADE)
-  content = models.CharField(max_length=500)
+  content = models.CharField(max_length=500, default=None)
   created_at = models.DateTimeField(default=timezone.now)
 
   def __str__(self):
