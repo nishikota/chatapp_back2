@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'rest_auth.registration',
+    'allauth.socialaccount',
 
     'rest_auth',
     'rest_framework.authtoken',
@@ -52,6 +53,10 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'appBackend.apps.AppbackendConfig',
 ]
+
+REST_AUTH_SERIALIZER = {
+    'LOGIN_SERIALIZER' : 'path.to.users.serializers.LoginSerializer'
+}
 
 # REST_USE_JWT = True
 
