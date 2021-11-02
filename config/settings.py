@@ -54,9 +54,13 @@ INSTALLED_APPS = [
     'appBackend.apps.AppbackendConfig',
 ]
 
-REST_AUTH_SERIALIZER = {
-    'LOGIN_SERIALIZER' : 'path.to.users.serializers.LoginSerializer'
+REST_AUTH_SERIALIZERS = {
+'LOGIN_SERIALIZER' : 'users.serializers.CustomLoginSerializer'
 }
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER' : 'users.serializers.CustomRegisterSerializer'
+}
+ACCOUNT_ADAPTER = 'users.serializers.UserAdapter'
 
 # REST_USE_JWT = True
 
