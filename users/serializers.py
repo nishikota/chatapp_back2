@@ -66,8 +66,14 @@ class UserAdapter(DefaultAccountAdapter):
     def save_user(self, request, user, form, commit=True):
         data = form.cleaned_data
         company_name = data.get('company_name')
+        section_name = data.get('section_name')
+        post_name = data.get('post_name')
         if company_name:
             setattr(user, 'company_name', company_name)
+        if section_name:
+            setattr(user, 'section_name', section_name)
+        if post_name:
+            setattr(user, 'post_name', post_name)
         return super().save_user(request, user, form, commit=commit)
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -78,6 +84,8 @@ class CustomRegisterSerializer(RegisterSerializer):
     )
     email = serializers.EmailField(required=allauth_settings.EMAIL_REQUIRED)
     company_name = serializers.CharField(max_length=100, required=True)
+    section_name = serializers.CharField(max_length=100, required=False)
+    post_name = serializers.CharField(max_length=100, required=False)
     password1 = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
 
@@ -87,7 +95,9 @@ class CustomRegisterSerializer(RegisterSerializer):
             'username': self.validated_data.get('username', ''),
             'password1': self.validated_data.get('password1', ''),
             'email': self.validated_data.get('email', ''),
-            'company_name':self.validated_data.get('company_name', '')
+            'company_name':self.validated_data.get('company_name', ''),
+            'section_name':self.validated_data.get('section_name', ''),
+            'post_name':self.validated_data.get('post_name', '')
         }
     def save(self, request):
         adapter = get_adapter()
