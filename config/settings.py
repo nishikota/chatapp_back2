@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 from pathlib import Path
 from telnetlib import AUTHENTICATION
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -55,14 +56,15 @@ INSTALLED_APPS = [
 ]
 
 REST_AUTH_SERIALIZERS = {
-'LOGIN_SERIALIZER' : 'users.serializers.CustomLoginSerializer'
+    'LOGIN_SERIALIZER' : 'users.serializers.CustomLoginSerializer',    'USER_DETAILS_SERIALIZER' : 'users.serializers.CustomUserDetailSerializer'
 }
+
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER' : 'users.serializers.CustomRegisterSerializer'
 }
 ACCOUNT_ADAPTER = 'users.serializers.UserAdapter'
 
-# REST_USE_JWT = True
+REST_USE_JWT = True
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = 'appBackend:menu'
@@ -79,7 +81,6 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-
 AUTH_USER_MODEL = 'users.CustomUser'
 
 REST_FRAMEWORK = {
@@ -87,9 +88,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication'
     ),
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.AllowAny'
-    # ]
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ]
 }
 
 MIDDLEWARE = [
@@ -105,8 +106,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3000',
-    'http://localhost:8000',
+    'http://127.0.0:3000',
 )
 
 ROOT_URLCONF = 'config.urls'

@@ -4,6 +4,7 @@ from rest_auth.serializers import LoginSerializer
 from rest_auth.registration.serializers import RegisterSerializer
 from django.utils.translation import ugettext_lazy as _
 from config import settings
+from users.models import CustomUser
 try:
     from allauth.account import app_settings as allauth_settings
     from allauth.account.utils import get_adapter, user_field, setup_user_email
@@ -61,6 +62,13 @@ class CustomLoginSerializer(LoginSerializer):
 
         attrs['user'] = user
         return attrs
+
+class CustomUserDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('pk', 'email')
+        read_only_fields = ('email',)
+
 
 class UserAdapter(DefaultAccountAdapter):
     def save_user(self, request, user, form, commit=True):
