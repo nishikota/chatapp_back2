@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 from pathlib import Path
-from telnetlib import AUTHENTICATION
+
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -84,12 +84,15 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSSES': (
-        # 'rest_framework.authentication.SessionAuthentication',
+    'DEFAULT_AUTHENTICATION_CLASSSES': [
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication'
-    ),
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
     ]
 }
 

@@ -1,3 +1,4 @@
+from dataclasses import field
 from django.conf import settings
 from rest_framework import serializers, exceptions
 from rest_auth.serializers import LoginSerializer
@@ -115,3 +116,5 @@ class CustomRegisterSerializer(RegisterSerializer):
         self.custom_signup(request, user)
         setup_user_email(request, user, [])
         return user
+
+
