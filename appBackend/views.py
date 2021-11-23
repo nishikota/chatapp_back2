@@ -5,8 +5,14 @@ from rest_framework import viewsets
 from users.models import CustomUser
 from .serializers import UserSerializer
 from rest_framework import permissions
+from django.middleware.csrf import get_token
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from rest_framework.decorators import action
 
 
+def CsrfView(request):
+  return JsonResponse({'token':get_token(request)})
 
 class LoginView(generic.TemplateView):
   template_name = 'appBackend/login.html'
@@ -18,6 +24,11 @@ class MenuView(generic.TemplateView):
 class MyProfileApi(viewsets.ModelViewSet):
   serializer_class = UserSerializer
   queryset = CustomUser.objects.all()
+
+  # @action(detail=False)
+  # @method_decorator(csrf_exempt)
+  # def dispatch(self, *args, **kwargs):
+  #   return super(MyProfileApi, self).dispatch(*args, **kwargs)
   # permission_classes = [permissions.IsAuthenticated]
   # renderer_classes = [JSONRenderer]
 

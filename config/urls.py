@@ -16,10 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from appBackend.views import CsrfView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('appBackend.urls')),
+    path('csrf/',CsrfView),
     path('accounts/', include('allauth.urls')),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
